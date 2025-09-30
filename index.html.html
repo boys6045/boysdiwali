@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Shop Billing Form</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 20px;
+  }
+
+  .form-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    max-width: 500px;
+    width: 100%;
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+    color: #555;
+  }
+
+  input, select, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  button {
+    margin-top: 20px;
+    padding: 12px;
+    width: 100%;
+    background: #007BFF;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+  }
+
+  button:hover {
+    background: #0056b3;
+  }
+
+  #result {
+    margin-top: 20px;
+    font-weight: bold;
+    text-align: center;
+    color: green;
+  }
+</style>
+</head>
+<body>
+
+<div class="form-card">
+<h2>Shop Billing Form</h2>
+<form id="billingForm">
+
+<label>Shop:
+  <select id="shop" required>
+    <option value="">Select Shop</option>
+    <option value="B1">B1</option>
+    <option value="B2">B2</option>
+    <option value="B3">B3</option>
+    <option value="B4">B4</option>
+    <option value="B5">B5</option>
+    <option value="B6">B6</option>
+    <option value="B7">B7</option>
+    <option value="B8">B8</option>
+    <option value="B9">B9</option>
+    <option value="B10">B10</option>
+    <option value="B11">B11</option>
+    <option value="B12">B12</option>
+    <option value="B13">B13</option>
+    <option value="B14">B14</option>
+    <option value="B15">B15</option>
+    <option value="B16">B16</option>
+    <option value="B18">B18</option>
+    <option value="B19">B19</option>
+    <option value="B20">B20</option>
+    <option value="B21">B21</option>
+    <option value="B22">B22</option>
+    <option value="B23">B23</option>
+    <option value="B24">B24</option>
+    <option value="B25">B25</option>
+    <option value="B26">B26</option>
+    <option value="B27">B27</option>
+    <option value="B28">B28</option>
+    <option value="B29">B29</option>
+    <option value="B30">B30</option>
+    <option value="B31">B31</option>
+    <option value="B32">B32</option>
+    <option value="B34">B34</option>
+    <option value="B35">B35</option>
+    <option value="B36">B36</option>
+    <option value="B37">B37</option>
+    <option value="B38">B38</option>
+    <option value="B39">B39</option>
+    <option value="B40">B40</option>
+    <option value="B41">B41</option>
+    <option value="B42">B42</option>
+    <option value="B43">B43</option>
+    <option value="B44">B44</option>
+
+  </select>
+</label>
+
+<label>Customer Name: <input id="customerName" required /></label>
+<label>Mobile Number: <input id="mobileNumber" required /></label>
+<label>Invoice No: <input id="invoiceNo" required /></label>
+
+<label>MOP: <input id="mop" required type="number" /></label>
+<label>Billing Price: <input id="billingPrice" type="number" required /></label>
+
+<button type="submit">Submit</button>
+</form>
+
+<p id="result"></p>
+</div>
+
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwAriRynNTKfmeuvI2WxX557ZypynlWs-9Ok-IQscYySig1DEya3ilZWYZvyTUbSLUJNA/exec";
+
+document.getElementById("billingForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  const data = {
+    shop: document.getElementById("shop").value,
+    customerName: document.getElementById("customerName").value,
+    mobileNumber: document.getElementById("mobileNumber").value,
+    invoiceNo: document.getElementById("invoiceNo").value,
+    mop: document.getElementById("mop").value,
+    billingPrice: document.getElementById("billingPrice").value
+  };
+
+  try {
+    const res = await fetch(SCRIPT_URL, {
+      method: "POST",
+      body: JSON.stringify(data)
+    });
+    const json = await res.json();
+    document.getElementById("result").textContent =
+      "Entry saved successfully! Your S.No: " + json.sno;
+    document.getElementById("billingForm").reset();
+  } catch(err) {
+    document.getElementById("result").textContent = "Error saving entry.";
+    console.error(err);
+  }
+});
+</script>
+
+</body>
+</html>
